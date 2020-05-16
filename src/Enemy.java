@@ -1,11 +1,12 @@
-import bagel.Image;
-import bagel.map.TiledMap;
 import bagel.util.Point;
 import bagel.util.Vector2;
 
 import java.util.List;
 
-public abstract class Enemy extends Image {
+/**
+ * The enemies of ShadowDefend, who aim to traverse the map.
+ */
+public abstract class Enemy extends Sprite {
 
     private boolean isActive;
     private Vector2 direction;
@@ -14,57 +15,30 @@ public abstract class Enemy extends Image {
     private Point nextPoint;
     private int nextPointIndex;
 
-    /* Constructs a particular type of enemy */
-    public Enemy(String filename, boolean isActive, TiledMap map) {
-        super(filename);
+    protected double health;
+
+    private int level;
+
+    /**
+     * Creates a new instance of an enemy.
+     *
+     * @param polyline The path along which an enemy travels
+     * @param imagesrc The file location of the slicer's image
+     * @param isActive Whether the slicer is currently traversing path
+     */
+    public Enemy(List<Point> polyline, String imageSrc, boolean isActive) {
+        super(polyline.get(0), imageSrc);
         this.isActive = isActive;
         nextPointIndex = 1;
-        polyline = map.getAllPolylines().get(0);
+        this.polyline = polyline;
         currentPoint = polyline.get(0);
         nextPoint = polyline.get(1);
         direction = new Vector2(nextPoint.x - currentPoint.x, nextPoint.y - currentPoint.y).normalised();
     }
 
-    public Point getNextPoint() {
-        return nextPoint;
-    }
-
-    public int getNextPointIndex() {
-        return nextPointIndex;
-    }
-
-    public Vector2 getDirection() {
-        return direction;
-    }
-
-    public double getDirectionFromXAxis() {
-        return Math.atan2(direction.y, direction.x);
-    }
-
-    /* Assigns each enemy's direction with the appropriate unit vector */
     public void setDirection() {
         nextPointIndex++;
         nextPoint = polyline.get(nextPointIndex);
         direction = new Vector2(nextPoint.x - currentPoint.x, nextPoint.y - currentPoint.y).normalised();
-    }
-
-    public Point getCurrentPoint() {
-        return currentPoint;
-    }
-
-    public void setCurrentPoint(double x, double y) {
-        currentPoint = new Point(x, y);
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void activate() {
-        this.isActive = true;
-    }
-
-    public void deactivate() {
-        this.isActive = false;
     }
 }

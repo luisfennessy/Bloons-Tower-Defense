@@ -2,8 +2,10 @@ import bagel.AbstractGame;
 import bagel.Input;
 import bagel.Keys;
 import bagel.Window;
-import bagel.map.TiledMap;
 
+/**
+ * A type of abstract game based off Bloons TD.
+ */
 public class ShadowDefend extends AbstractGame {
 
     private static final int HEIGHT = 768;                                  // Height of game window
@@ -11,47 +13,34 @@ public class ShadowDefend extends AbstractGame {
     private static final Keys slicerWaveKey = Keys.S;                       // Key pressed to commence wave of slicers
     private static final Keys speedUpKey = Keys.L;                          // Key pressed to increase speed of game
     private static final Keys slowDownKey = Keys.K;                         // Key pressed to decrease speed of game
-    private final TiledMap map = new TiledMap("res/levels/1.tmx");  // Used map & polyline
-    private final int polylineLength = map.getAllPolylines().get(0).size(); // Size of map's polyline
 
-    private Wave currentWave;
+    private Level currentLevel;
 
-
-    /* Constructs the game Shadow Defend; calls on constructor from AbstractGame */
+    /**
+     * Creates a new instance of the game.
+     */
     public ShadowDefend() {
         super(WIDTH, HEIGHT, "ShadowDefend");
     }
 
 
-    /* Runs each frame of Shadow Defend */
+    /**
+     * Entry-point for the game
+     *
+     * @param args Optional command-line arguments
+     */
     public static void main(String[] args) throws Exception {
         new ShadowDefend().run();
     }
 
 
-    /* Dictates the updates instilled across each frame, ensures the appropriate ending of the game */
+    /**
+     * Updates the state of the game at each frame
+     *
+     * @param input Transfers player's input to game-play alterations
+     */
     @Override
     protected void update(Input input) {
-        map.draw(0, 0, 0, 0, Window.getWidth(), Window.getHeight());
 
-        /* Controls game-play as per the keyboard input */
-        if (input.isDown(slicerWaveKey) && currentWave==null) {
-            currentWave = new Wave(slicerWaveKey, System.currentTimeMillis(), map);
-        }
-        if (input.isDown(speedUpKey) && currentWave!=null) {
-            currentWave.adjustTimescale(1, System.currentTimeMillis());
-        }
-        if (input.isDown(slowDownKey) && currentWave!=null) {
-            currentWave.adjustTimescale(-1, System.currentTimeMillis());
-        }
-
-        /* Depending on state of wave, will refresh or close window */
-        if (currentWave!=null) {
-            if (currentWave.isActive()) {
-                currentWave.refreshEnemies(System.currentTimeMillis(), polylineLength);
-            } else {
-                Window.close();
-            }
-        }
     }
 }

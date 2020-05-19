@@ -1,6 +1,5 @@
 import bagel.AbstractGame;
 import bagel.Input;
-import bagel.Keys;
 import bagel.Window;
 
 /**
@@ -10,17 +9,19 @@ public class ShadowDefend extends AbstractGame {
 
     private static final int HEIGHT = 768;                                  // Height of game window
     private static final int WIDTH = 1024;                                  // Width of game window
-    private static final Keys slicerWaveKey = Keys.S;                       // Key pressed to commence wave of slicers
-    private static final Keys speedUpKey = Keys.L;                          // Key pressed to increase speed of game
-    private static final Keys slowDownKey = Keys.K;                         // Key pressed to decrease speed of game
+    private static final int MAX_LEVELS_SUPPORTED = 2;
+    // Change FPS to suit system specifications.
+    public static final double FPS = 60;
 
     private Level currentLevel;
+    private int levelNumber;
 
     /**
      * Creates a new instance of the game.
      */
     public ShadowDefend() {
         super(WIDTH, HEIGHT, "ShadowDefend");
+        levelNumber = 1;
     }
 
 
@@ -41,6 +42,19 @@ public class ShadowDefend extends AbstractGame {
      */
     @Override
     protected void update(Input input) {
+
+        if (currentLevel != null) {
+            if (currentLevel.isActive()) {
+                currentLevel.update(input);
+            } else if (levelNumber < MAX_LEVELS_SUPPORTED) {
+                levelNumber++;
+                currentLevel = new Level(levelNumber);
+            } else {
+                Window.close();
+            }
+        } else {
+            currentLevel = new Level(levelNumber);
+        }
 
     }
 }

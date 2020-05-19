@@ -31,6 +31,10 @@ public abstract class Sprite {
         return new Rectangle(rect);
     }
 
+    public Image getImage() {
+        return image;
+    }
+
     /**
      * Moves the Sprite by a specified delta
      *
@@ -46,6 +50,10 @@ public abstract class Sprite {
 
     public void setAngle(double angle) {
         this.angle = angle;
+    }
+
+    public double getAngle() {
+        return angle;
     }
 
     /**

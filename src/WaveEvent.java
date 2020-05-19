@@ -1,27 +1,49 @@
-import bagel.map.TiledMap;
-import bagel.util.Point;
-
-import java.util.List;
-
 /**
  * A specified event of a wave, either delaying or commencing enemy spawns.
  */
 public abstract class WaveEvent {
 
-    private final int INDEXOFWAVENUM = 0;       // The index of the wave number in an event's description
-
+    private final static int INDEX_OF_WAVE_NUM = 0;       // The index of the wave number in an event's description
     private int waveNumber;
-    private List<Point> polyline;
+    private boolean isActive;
+    private double frameOfEventStart;
 
     /**
      * Creates a new instance of a wave event.
      *
      * @param eventInfo Describes the properties of the wave event
-     * @param polyline The path along which an enemy travels
      */
-    public WaveEvent(String[] eventInfo, List<Point> polyline) {
-        waveNumber = Integer.parseInt(eventInfo[INDEXOFWAVENUM]);
-        this.polyline = polyline;
+    public WaveEvent(String[] eventInfo) {
+        waveNumber = Integer.parseInt(eventInfo[INDEX_OF_WAVE_NUM]);
+        isActive = false;
     }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public double getFrameOfEventStart() {
+        return frameOfEventStart;
+    }
+
+    public abstract boolean isStillRunning();
+
+    public void activate(double frameCount) {
+        isActive = true;
+        frameOfEventStart = frameCount;
+    }
+
+
+    public void deactivate() {
+        isActive = false;
+    }
+
+    /**
+     * Updates the state of the wave event at each frame.
+     *
+     * @param timescale the rate of movement
+     * @param frameCount allows perspective of time elapsed
+     */
+    public abstract void update(int timescale, double frameCount);
 
 }

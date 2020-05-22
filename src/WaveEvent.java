@@ -5,7 +5,7 @@ public abstract class WaveEvent {
 
     private final static int INDEX_OF_WAVE_NUM = 0;       // The index of the wave number in an event's description
     private int waveNumber;
-    private boolean isActive;
+    private boolean isActive = false;
     private double frameOfEventStart;
 
     /**
@@ -15,7 +15,6 @@ public abstract class WaveEvent {
      */
     public WaveEvent(String[] eventInfo) {
         waveNumber = Integer.parseInt(eventInfo[INDEX_OF_WAVE_NUM]);
-        isActive = false;
     }
 
     public boolean isActive() {

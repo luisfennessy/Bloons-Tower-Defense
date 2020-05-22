@@ -24,13 +24,13 @@ public class SpawnEvent extends WaveEvent {
 
     // The file location of each slicer's image
     private final static String REG_SLICER_IMAGE = "res/images/slicer.png";
-    private final static String SUPER_SLICER_IMAGE = "res/images/slicer.png";
-    private final static String MEGA_SLICER_IMAGE = "res/images/slicer.png";
-    private final static String APEX_SLICER_IMAGE = "res/images/slicer.png";
+    private final static String SUPER_SLICER_IMAGE = "res/images/superslicer.png";
+    private final static String MEGA_SLICER_IMAGE = "res/images/megaslicer.png";
+    private final static String APEX_SLICER_IMAGE = "res/images/apexslicer.png";
 
-    private int numSpawned;
+    private int numSpawned = 0;
     private int numToSpawn;
-    private int numDeactivated;
+    private int numDeactivated = 0;
     private int spawnDelay;
     private double frameOfLatestChange;
     private boolean stillRunning;
@@ -47,8 +47,6 @@ public class SpawnEvent extends WaveEvent {
         super(eventInfo);
         this.polyline = polyline;
         numToSpawn = Integer.parseInt(eventInfo[INDEX_OF_NUM_SPAWN]);
-        numSpawned = 0;
-        numDeactivated = 0;
         int i;
         // Adds to ArrayList of enemies, as per specified slicer type
         if (eventInfo[INDEX_OF_ENEMY_TYPE].equals(REG_SLICER_NAME)) {

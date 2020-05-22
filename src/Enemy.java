@@ -1,3 +1,5 @@
+import bagel.DrawOptions;
+import bagel.Input;
 import bagel.util.Point;
 import bagel.util.Vector2;
 
@@ -13,8 +15,9 @@ public abstract class Enemy extends Sprite {
     private Point currentPoint;
     private Point nextPoint;
     private int nextPointIndex;
+    private double angle;
 
-    protected double healthRemaining;
+    private double healthRemaining;
 
 
     /**
@@ -22,7 +25,6 @@ public abstract class Enemy extends Sprite {
      *
      * @param polyline The path along which an enemy travels
      * @param imageSrc The file location of the slicer's image
-     * @param isActive Whether the slicer is currently traversing path
      */
     public Enemy(List<Point> polyline, String imageSrc) {
         super(polyline.get(0), imageSrc);
@@ -35,6 +37,7 @@ public abstract class Enemy extends Sprite {
 
     public void activate() {
         isActive = true;
+        this.setAngle(Math.atan2(nextPoint.y - currentPoint.y, nextPoint.x - currentPoint.x));
     }
 
     public void deactivate() {
@@ -53,11 +56,19 @@ public abstract class Enemy extends Sprite {
         return currentPoint;
     }
 
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
     public void changeMovement() {
         currentPoint = polyline.get(nextPointIndex);
         nextPointIndex++;
         nextPoint = polyline.get(nextPointIndex);
-        this.setAngle(Math.atan2(nextPoint.x - currentPoint.x, nextPoint.y - currentPoint.y));
+        this.setAngle(Math.atan2(nextPoint.y - currentPoint.y, nextPoint.x - currentPoint.x));
     }
 
     @Override
@@ -66,4 +77,9 @@ public abstract class Enemy extends Sprite {
         Point prevPoint = currentPoint;
         currentPoint = new Point(prevPoint.x + dx.x, prevPoint.y + dx.y);
     }
+
+    public void die() {
+
+    }
+
 }

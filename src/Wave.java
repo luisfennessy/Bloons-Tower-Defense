@@ -13,8 +13,9 @@ public class Wave {
     private static final int INDEX_OF_WAVE_TYPE = 1;
     private static final String SPAWN_EVENT_TYPE = "spawn";
     private static final String DELAY_EVENT_TYPE = "delay";
-    private boolean isActive;
-    private int eventsCommenced;
+    private boolean isActive = false;
+    private int eventsCommenced = 0;
+    private int waveNumber;
 
 
 
@@ -23,10 +24,9 @@ public class Wave {
      *
      * @param polyline The polyline that the enemies must traverse
      */
-    public Wave(List<Point> polyline) {
-        isActive = false;
+    public Wave(List<Point> polyline, int waveNumber) {
         this.polyline = polyline;
-        eventsCommenced = 0;
+        this.waveNumber = waveNumber;
     }
 
     /**
@@ -51,6 +51,9 @@ public class Wave {
         isActive = true;
     }
 
+    public int getWaveNumber() {
+        return waveNumber;
+    }
 
     /**
      * Updates the state of the wave at each frame.
@@ -80,13 +83,17 @@ public class Wave {
             if (waveEvent.isStillRunning()) {
                 waveEvent.update(timescale, frameCount);
                 if (waveEvent.isActive()) {
+                    System.out.println("NO");
                     needNewEvent = false;
                 }
             }
             if (needNewEvent) {
+                System.out.println("YES");
                 if (eventsCommenced == waveEvents.size()) {
+                    System.out.println("END");
                     isActive = false;
                 } else {
+                    System.out.println("NEW");
                     waveEvents.get(eventsCommenced).activate(frameCount);
                     eventsCommenced++;
                 }

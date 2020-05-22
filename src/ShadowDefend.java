@@ -7,8 +7,9 @@ import bagel.Window;
  */
 public class ShadowDefend extends AbstractGame {
 
-    private static final int HEIGHT = 768;                                  // Height of game window
-    private static final int WIDTH = 1024;                                  // Width of game window
+    // CHANGE ALL TO PRIVATE
+    public static final int HEIGHT = 768;                                  // Height of game window
+    public static final int WIDTH = 1024;                                  // Width of game window
     private static final int MAX_LEVELS_SUPPORTED = 2;
     // Change FPS to suit system specifications.
     public static final double FPS = 60;
@@ -50,7 +51,8 @@ public class ShadowDefend extends AbstractGame {
                 levelNumber++;
                 currentLevel = new Level(levelNumber);
             } else {
-                Window.close();
+                // Dont close at end Window.close();
+                currentLevel.setGameIsOver(true);
             }
         } else {
             currentLevel = new Level(levelNumber);

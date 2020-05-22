@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class ApexSlicer extends Enemy {
 
-    private static final double INITIALHEALTH = 25;
+    private static final double INITIAL_HEALTH = 25;
     private static final int REWARD = 150;
     private static final int PENALTY = 16;
     private static final double SPEED = 0.75;
@@ -22,6 +22,6 @@ public class ApexSlicer extends Enemy {
      */
     public ApexSlicer(List<Point> polyline, String imageSrc) {
         super(polyline, imageSrc);
-        this.healthRemaining = INITIALHEALTH;
+        this.healthRemaining = INITIAL_HEALTH;
     }
 }

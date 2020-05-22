@@ -12,7 +12,6 @@ public abstract class Sprite {
 
     private final Image image;
     private final Rectangle rect;
-    private double angle;
 
     /**
      * Creates a new Sprite (game entity)
@@ -20,10 +19,9 @@ public abstract class Sprite {
      * @param point    The starting point for the entity
      * @param imageSrc The image which will be rendered at the entity's point
      */
-    public Sprite(Point point, String imageSrc) {
+    protected Sprite(Point point, String imageSrc) {
         this.image = new Image(imageSrc);
         this.rect = image.getBoundingBoxAt(point);
-        this.angle = 0;
     }
 
 
@@ -48,18 +46,9 @@ public abstract class Sprite {
         return getRect().centre();
     }
 
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }
-
-    public double getAngle() {
-        return angle;
-    }
 
     /**
      * Updates the Sprite. Default behaviour is to render the Sprite at its current position.
-     */
-    public void update(Input input) {
-        image.draw(getCenter().x, getCenter().y, new DrawOptions().setRotation(angle));
-    }
+
+    public abstract void update(Input input);*/
 }

@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class SuperSlicer extends Enemy {
 
-    private static final double INITIALHEALTH = 1;
+    private static final double INITIAL_HEALTH = 1;
     private static final int REWARD = 15;
     private static final int PENALTY = 2;
     private static final double SPEED = 1.5;
@@ -22,6 +22,6 @@ public class SuperSlicer extends Enemy {
      */
     public SuperSlicer(List<Point> polyline, String imageSrc) {
         super(polyline, imageSrc);
-        this.healthRemaining = INITIALHEALTH;
+        this.healthRemaining = INITIAL_HEALTH;
     }
 }

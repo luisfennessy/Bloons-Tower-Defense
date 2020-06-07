@@ -22,6 +22,6 @@ public class ApexSlicer extends Enemy {
      */
     public ApexSlicer(List<Point> polyline, String imageSrc) {
         super(polyline, imageSrc);
-        this.healthRemaining = INITIAL_HEALTH;
+        setHealthRemaining(INITIAL_HEALTH);
     }
 }

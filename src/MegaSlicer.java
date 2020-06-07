@@ -21,6 +21,6 @@ public class MegaSlicer extends Enemy {
      */
     public MegaSlicer(List<Point> polyline, String imageSrc) {
         super(polyline, imageSrc);
-        this.healthRemaining = INITIAL_HEALTH;
+        setHealthRemaining(INITIAL_HEALTH);
     }
 }

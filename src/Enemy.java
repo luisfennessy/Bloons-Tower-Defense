@@ -56,6 +56,10 @@ public abstract class Enemy extends Sprite {
         return currentPoint;
     }
 
+    protected void setHealthRemaining(double healthRemaining) {
+        this.healthRemaining = healthRemaining;
+    }
+
     public void setAngle(double angle) {
         this.angle = angle;
     }

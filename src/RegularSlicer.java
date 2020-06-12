@@ -7,21 +7,37 @@ import java.util.List;
  */
 public class RegularSlicer extends Enemy {
 
-    private static final double INITIAL_HEALTH = 1;
-    private static final int REWARD = 2;
-    private static final int PENALTY = 1;
-    private static final double SPEED = 2;
+    private final static String REG_SLICER_IMAGE = "res/images/slicer.png";
+    public static final double INITIAL_HEALTH = 1;
+    public static final int REWARD = 2;
+    public static final int PENALTY = 1;
+    private static final int CHILDREN_SPAWNED = 0;
+    public static final double SPEED = 2;
 
 
     /**
      * Creates a new regular slicer.
      *
-     * @param polyline The path along which an enemy travels
-     * @param imageSrc The file location of the slicer's image
-     * @param isActive Whether the slicer is currently traversing path
+     * @param polyline   The path along which an enemy travels
+     * @param spawnEvent the spawn event in which it's spawned in.
      */
-    public RegularSlicer(List<Point> polyline, String imageSrc) {
-        super(polyline, imageSrc);
-        setHealthRemaining(INITIAL_HEALTH);
+    public RegularSlicer(List<Point> polyline, SpawnEvent spawnEvent) {
+        super(polyline, REG_SLICER_IMAGE, spawnEvent, INITIAL_HEALTH, REWARD, PENALTY, CHILDREN_SPAWNED, SPEED);
+    }
+
+    /**
+     * Spawns a new Mega slicer at the position of its parent.
+     *
+     * @param polyline       its polyline, to be followed.
+     * @param spawnEvent     its spawn event
+     * @param nextPointIndex its next point index, inherited from its parent
+     * @param currentPoint   its current point, inherited from its parent
+     * @param nextPoint      its next point, inherited from its parent
+     */
+    public RegularSlicer(List<Point> polyline, SpawnEvent spawnEvent, int nextPointIndex, Point
+            currentPoint, Point nextPoint) {
+        super(polyline, REG_SLICER_IMAGE, spawnEvent, nextPointIndex, currentPoint, nextPoint, INITIAL_HEALTH, REWARD,
+                PENALTY, CHILDREN_SPAWNED, SPEED);
     }
 }
+

@@ -1,20 +1,17 @@
+import java.util.ArrayList;
+
 /**
  * A specified event of a wave, either delaying or commencing enemy spawns.
  */
 public abstract class WaveEvent {
 
-    private final static int INDEX_OF_WAVE_NUM = 0;       // The index of the wave number in an event's description
-    private int waveNumber;
     private boolean isActive = false;
     private double frameOfEventStart;
 
     /**
      * Creates a new instance of a wave event.
-     *
-     * @param eventInfo Describes the properties of the wave event
      */
-    public WaveEvent(String[] eventInfo) {
-        waveNumber = Integer.parseInt(eventInfo[INDEX_OF_WAVE_NUM]);
+    public WaveEvent() {
     }
 
     public boolean isActive() {
@@ -27,6 +24,11 @@ public abstract class WaveEvent {
 
     public abstract boolean isStillRunning();
 
+    /**
+     * Activates the wave event, declaring the frame at which this was done.
+     *
+     * @param frameCount the frame at which this activation occurs
+     */
     public void activate(double frameCount) {
         isActive = true;
         frameOfEventStart = frameCount;
@@ -42,7 +44,8 @@ public abstract class WaveEvent {
      *
      * @param timescale the rate of movement
      * @param frameCount allows perspective of time elapsed
+     * @return the enemies present in that wave event.
      */
-    public abstract void update(int timescale, double frameCount);
+    public abstract ArrayList<Enemy> update(int timescale, double frameCount);
 
 }

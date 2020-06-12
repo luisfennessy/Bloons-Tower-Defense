@@ -1,8 +1,10 @@
-import bagel.Font;
 import bagel.Image;
 import bagel.util.Point;
 import bagel.util.Rectangle;
 
+/**
+ * The panel shown to the user to allow for clear game-play. Concrete inheritors of this class may be singletons.
+ */
 public abstract class Panel {
 
     private final static String FONT_SRC = "res/fonts/DejaVuSans-Bold.ttf";
@@ -10,6 +12,12 @@ public abstract class Panel {
     private final Image image;
     private final Rectangle rect;
 
+    /**
+     * Instantiates a new Panel.
+     *
+     * @param point the point of the panel's centre
+     * @param image the panel's image.
+     */
     protected Panel(Point point, Image image) {
         this.image = image;
         this.rect = image.getBoundingBoxAt(point);
@@ -27,7 +35,7 @@ public abstract class Panel {
         return rect.centre();
     }
 
-    public static String getFontSrc() {
+   public static String getFontSrc() {
         return FONT_SRC;
     }
 }

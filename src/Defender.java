@@ -1,58 +1,61 @@
-import bagel.Image;
 import bagel.util.Point;
-import bagel.util.Rectangle;
 
-public abstract class Defender {
+import java.util.ArrayList;
 
-    private final static int TANK_PRICE = 250;
-    private final static int SUPER_TANK_PRICE = 600;
-    private final static int AIRPLANE_PRICE = 500;
+/**
+ * The defender who use ammunition to damage and kill enemy slicers, earning rewards.
+ */
+public abstract class Defender extends Sprite {
 
-    private final Image image;
-    private final Rectangle rect;
-    private double damage;
+    private boolean isActive = true;
     private int price;
-    private Point position;
-    private boolean isDeployed = false;
+    private int effectRadius;
 
-    protected Defender(Point point, Image image) {
-        this.image = image;
-        this.rect = image.getBoundingBoxAt(point);
-        this.position = point;
+    /**
+     * Creates a new Defender
+     *
+     * @param point        The starting point for the entity
+     * @param imageSrc     The image which will be rendered at the entity's point
+     * @param price        the price of the defender
+     * @param effectRadius the effect radius of the defender
+     */
+    protected Defender(Point point, String imageSrc, int price, int effectRadius) {
+        super(point, imageSrc);
+        this.price = price;
+        this.effectRadius = effectRadius;
     }
 
-    public void draw() {
-        image.draw(position.x, position.y);
+    /**
+     * Draws a model of a defender for buy panel & placing process, based on its center.
+     */
+    public void drawModel() {
+        getImage().draw(getCenter().x, getCenter().y);
     }
 
-    public static int getAirplanePrice() {
-        return AIRPLANE_PRICE;
+    public void deactivate() {
+        isActive = false;
     }
 
-    public Image getImage() {
-        return image;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public Rectangle getRect() {
-        return rect;
-    }
-
-    public static int getSuperTankPrice() {
-        return SUPER_TANK_PRICE;
-    }
-
-    public static int getTankPrice() {
-        return TANK_PRICE;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public int purchase() {
-        this.isDeployed = true;
+    public int getPrice() {
         return price;
     }
 
+    public int getEffectRadius() {
+        return effectRadius;
+    }
+
+    /**
+     * Sets position, moving its rectangle accordingly.
+     *
+     * @param enemies    the enemies of the current wave, to be targeted by the
+     * @param frameCount the position to which the defender is to move
+     * @param timescale  the pace modifier of the level
+     * @return the rewards from the killing of enemies.
+     */
+    public abstract int update(ArrayList<Enemy> enemies, double frameCount, int timescale);
 
 }

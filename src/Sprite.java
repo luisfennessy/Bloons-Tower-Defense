@@ -6,7 +6,7 @@ import bagel.util.Rectangle;
 import bagel.util.Vector2;
 
 /**
- * Represents a game entity; code used from Project 1 solutions
+ * Represents a game entity; code inspired from Project 1 solutions
  */
 public abstract class Sprite {
 
@@ -42,13 +42,17 @@ public abstract class Sprite {
         rect.moveTo(rect.topLeft().asVector().add(dx).asPoint());
     }
 
+    /**
+     * Sets position, moving its rectangle accordingly.
+     *
+     * @param position the position to which the defender is to move
+     */
+    public void setPosition(Point position) {
+        this.move(new Vector2(position.x - getCenter().x, position.y - getCenter().y));
+    }
+
     public Point getCenter() {
         return getRect().centre();
     }
 
-
-    /**
-     * Updates the Sprite. Default behaviour is to render the Sprite at its current position.
-
-    public abstract void update(Input input);*/
 }

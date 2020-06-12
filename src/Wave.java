@@ -10,33 +10,33 @@ public class Wave {
 
     private ArrayList<WaveEvent> waveEvents = new ArrayList<>();
     private List<Point> polyline;
-    private static final int INDEX_OF_WAVE_TYPE = 1;
-    private static final String SPAWN_EVENT_TYPE = "spawn";
-    private static final String DELAY_EVENT_TYPE = "delay";
+    private static final int INDEX_OF_WAVE_TYPE = 1;           // index of entry of wave type in each line of wave text
+    private static final String SPAWN_EVENT_TYPE = "spawn";    // used in wave text file to denote the spawn event type
+    private static final String DELAY_EVENT_TYPE = "delay";    // used in wave text file to denote the delay event type
+    private Level level;
     private boolean isActive = false;
     private int eventsCommenced = 0;
-    private int waveNumber;
-
 
 
     /**
      * Creates a new instance of a wave.
      *
      * @param polyline The polyline that the enemies must traverse
+     * @param level    the level in which the wave takes place
      */
-    public Wave(List<Point> polyline, int waveNumber) {
+    public Wave(List<Point> polyline, Level level) {
         this.polyline = polyline;
-        this.waveNumber = waveNumber;
+        this.level = level;
     }
 
     /**
-     * Creates a new instance of a wave event.
+     * Creates a new instance of a wave event, and adds its to the wave events of the wave.
      *
      * @param waveEventInfo Provides description of wave event
      */
     public void addWaveEvent(String[] waveEventInfo) {
         if (waveEventInfo[INDEX_OF_WAVE_TYPE].equals(SPAWN_EVENT_TYPE)) {
-            waveEvents.add(new SpawnEvent(waveEventInfo, polyline));
+            waveEvents.add(new SpawnEvent(waveEventInfo, polyline, level));
         } else if (waveEventInfo[INDEX_OF_WAVE_TYPE].equals(DELAY_EVENT_TYPE)) {
             waveEvents.add(new DelayEvent(waveEventInfo));
         }
@@ -51,53 +51,42 @@ public class Wave {
         isActive = true;
     }
 
-    public int getWaveNumber() {
-        return waveNumber;
-    }
-
     /**
      * Updates the state of the wave at each frame.
      *
-     * @param timescale the rate of movement
+     * @param timescale  the rate of movement
      * @param frameCount allows perspective of time elapsed
+     * @return enemies which are active in the current wave.
      */
-    public void update(int timescale, double frameCount) {
+    public ArrayList<Enemy> update(int timescale, double frameCount) {
 
-        /* Depending on state of wave event, might refresh or terminate it
-        if (currentEvent != null) {
-            if (currentEvent.isActive()) {
-                currentEvent.update(timescale, frameCount);
-            } else if (eventsCompleted < waveEvents.size() - 1) {
-                eventsCompleted++;
-                currentEvent = waveEvents.get(eventsCompleted);
-                currentEvent.activate(frameCount);
-            } else {
-                isActive = false;
-            }
-        } else {
-            currentEvent = waveEvents.get(0);
-        }*/
+        ArrayList<Enemy> currentEnemies = new ArrayList<>();
+        boolean needNewEvent = true;
+        boolean needToDeactivate = true;
 
+        // confirms no new event required or that current event is to be deactivated judging off the currently running
+        // wave events
         for (WaveEvent waveEvent : waveEvents) {
-            boolean needNewEvent = true;
             if (waveEvent.isStillRunning()) {
-                waveEvent.update(timescale, frameCount);
+                needToDeactivate = false;
+                currentEnemies.addAll(waveEvent.update(timescale, frameCount));
                 if (waveEvent.isActive()) {
-                    System.out.println("NO");
                     needNewEvent = false;
                 }
             }
-            if (needNewEvent) {
-                System.out.println("YES");
-                if (eventsCommenced == waveEvents.size()) {
-                    System.out.println("END");
+        }
+
+        // activates new wave event if necessary
+        if (needNewEvent) {
+            if (eventsCommenced == waveEvents.size()) {
+                if (needToDeactivate) {
                     isActive = false;
-                } else {
-                    System.out.println("NEW");
-                    waveEvents.get(eventsCommenced).activate(frameCount);
-                    eventsCommenced++;
                 }
+            } else {
+                waveEvents.get(eventsCommenced).activate(frameCount);
+                eventsCommenced++;
             }
         }
+        return currentEnemies;
     }
 }

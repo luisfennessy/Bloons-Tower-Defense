@@ -7,22 +7,21 @@ import bagel.Window;
  */
 public class ShadowDefend extends AbstractGame {
 
-    // CHANGE ALL TO PRIVATE
-    public static final int HEIGHT = 768;                                  // Height of game window
-    public static final int WIDTH = 1024;                                  // Width of game window
+    public static final int HEIGHT = 768;                       // Height of game window
+    public static final int WIDTH = 1024;                       // Width of game window
     private static final int MAX_LEVELS_SUPPORTED = 2;
     // Change FPS to suit system specifications.
     public static final double FPS = 60;
+    public final static double MILLI_TO_NORMAL = 0.001;         // multiplier to convert milli units to units
 
     private Level currentLevel;
-    private int levelNumber;
+    private int levelNumber = 1;
 
     /**
      * Creates a new instance of the game.
      */
     public ShadowDefend() {
         super(WIDTH, HEIGHT, "ShadowDefend");
-        levelNumber = 1;
     }
 
 
@@ -45,13 +44,12 @@ public class ShadowDefend extends AbstractGame {
     protected void update(Input input) {
 
         if (currentLevel != null) {
-            if (currentLevel.isActive()) {
+            if (currentLevel.isActive() || currentLevel.isGameOver()) {
                 currentLevel.update(input);
             } else if (levelNumber < MAX_LEVELS_SUPPORTED) {
                 levelNumber++;
                 currentLevel = new Level(levelNumber);
             } else {
-                // Dont close at end Window.close();
                 currentLevel.setGameIsOver(true);
             }
         } else {

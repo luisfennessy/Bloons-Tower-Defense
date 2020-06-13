@@ -3,7 +3,7 @@ import bagel.util.Point;
 import java.util.ArrayList;
 
 /**
- * The defender who use ammunition to damage and kill enemy slicers, earning rewards.
+ * The defender who use ammunition to damage and kill enemies, earning rewards.
  */
 public abstract class Defender extends Sprite {
 
@@ -14,8 +14,8 @@ public abstract class Defender extends Sprite {
     /**
      * Creates a new Defender
      *
-     * @param point        The starting point for the entity
-     * @param imageSrc     The image which will be rendered at the entity's point
+     * @param point        The starting point for the defener
+     * @param imageSrc     The image which will be rendered at the defender's point
      * @param price        the price of the defender
      * @param effectRadius the effect radius of the defender
      */
@@ -49,7 +49,7 @@ public abstract class Defender extends Sprite {
     }
 
     /**
-     * Sets position, moving its rectangle accordingly.
+     * Updates the defender, attacking where necessary and collecting rewards from kills.
      *
      * @param enemies    the enemies of the current wave, to be targeted by the
      * @param frameCount the position to which the defender is to move

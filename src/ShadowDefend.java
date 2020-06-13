@@ -1,6 +1,5 @@
 import bagel.AbstractGame;
 import bagel.Input;
-import bagel.Window;
 
 /**
  * A type of abstract game based off Bloons TD.

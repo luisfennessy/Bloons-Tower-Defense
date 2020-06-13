@@ -42,11 +42,12 @@ public class Level {
     private boolean isPlacing = false;
     private Defender placingDefender;
     private boolean lastPlaneHorizontal = false;
+
     private StatusPanel statusPanel = StatusPanel.getStatusPanel();
     private BuyPanel buyPanel = BuyPanel.getBuyPanel();
 
     /**
-     * Creates a new level, reading in the wave information.
+     * Creates a new level, and loads its respective map, reading in the wave information.
      *
      * @param levelNumber The numbered level
      */
@@ -112,7 +113,7 @@ public class Level {
     }
 
     /**
-     * Checks whether the cursor is over the position of a previously placed tower.
+     * Checks whether the cursor is over the position of a previously placed tower to ensure no overlap in placing.
      *
      * @param cursorPosition the position of the cursor
      * @return whether the cursor is over the position of a previously placed tower.
@@ -127,9 +128,9 @@ public class Level {
     }
 
     /**
-     * Undertakes the subtraction of lives of the user upon an enemy's traversal of the whole polyline.
+     * Undertakes the subtraction of lives of the user upon an enemy's traversal of the entire polyline.
      *
-     * @param penalty the penalty of the particular slicer.
+     * @param penalty the penalty of the particular enemy.
      */
     public void loseLives(int penalty) {
         livesLeft -= penalty;
@@ -238,6 +239,8 @@ public class Level {
             statusPanel.update(wavesCompleted + 1, timescale, livesLeft, gameIsOver, isPlacing,
                     false, lastPlaneHorizontal);
         }
+
+        // updates the state of all placed defenders
         for (Defender defender : defenders) {
             if (defender.isActive()) {
                 moneyLeft += defender.update(currentEnemies, frameCount, timescale);

@@ -28,7 +28,7 @@ public class SpawnEvent extends WaveEvent {
     private int numToDeactivate;
     private double spawnDelay;
     private double frameOfLatestChange;
-    private boolean stillRunning;                  // specifies whether some spawn event's slicers are are still active
+    private boolean stillRunning;               // specifies whether some of spawn event's slicers are are still active
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private List<Point> polyline;
     private Level level;
@@ -82,6 +82,7 @@ public class SpawnEvent extends WaveEvent {
         int i;
         enemy.deactivate();
         numDeactivated++;
+        double spreadOffset = (enemy.getChildrenNum() - 1) / 2.0;
         if (enemy instanceof RegularSlicer) {
             if (numDeactivated == numToDeactivate) {
                 stillRunning = false;
@@ -90,22 +91,25 @@ public class SpawnEvent extends WaveEvent {
         } else if (enemy instanceof SuperSlicer) {
             for (i = 0; i < enemy.getChildrenNum(); i++) {
                 enemies.add(new RegularSlicer(polyline, this, enemy.getNextPointIndex(),
-                        new Point(enemy.getCurrentPoint().x + (i - 0.5) * SPREAD_DIST, enemy.getCurrentPoint().y
-                                + (i - 0.5) * SPREAD_DIST), enemy.getNextPoint()));
+                        new Point(enemy.getCurrentPoint().x + (i - spreadOffset) * SPREAD_DIST,
+                                enemy.getCurrentPoint().y + (i - spreadOffset) * SPREAD_DIST),
+                        enemy.getNextPoint()));
                 numToDeactivate++;
             }
         } else if (enemy instanceof MegaSlicer) {
             for (i = 0; i < enemy.getChildrenNum(); i++) {
                 enemies.add(new SuperSlicer(polyline, this, enemy.getNextPointIndex(),
-                        new Point(enemy.getCurrentPoint().x + (i - 0.5) * SPREAD_DIST, enemy.getCurrentPoint().y
-                                + (i - 0.5) * SPREAD_DIST), enemy.getNextPoint()));
+                        new Point(enemy.getCurrentPoint().x + (i - spreadOffset) * SPREAD_DIST,
+                                enemy.getCurrentPoint().y + (i - spreadOffset) * SPREAD_DIST),
+                        enemy.getNextPoint()));
                 numToDeactivate++;
             }
         } else if (enemy instanceof ApexSlicer) {
             for (i = 0; i < enemy.getChildrenNum(); i++) {
                 enemies.add(new MegaSlicer(polyline, this, enemy.getNextPointIndex(),
-                        new Point(enemy.getCurrentPoint().x + (i - 1.5) * SPREAD_DIST, enemy.getCurrentPoint().y
-                                + (i - 0.5) * SPREAD_DIST), enemy.getNextPoint()));
+                        new Point(enemy.getCurrentPoint().x + (i - spreadOffset) * SPREAD_DIST,
+                                enemy.getCurrentPoint().y + (i - spreadOffset) * SPREAD_DIST),
+                        enemy.getNextPoint()));
                 numToDeactivate++;
             }
         }
@@ -123,17 +127,19 @@ public class SpawnEvent extends WaveEvent {
     }
 
     /**
-     * Upon activation, will also spawn its first enemy and start timing the length between to spawns.
+     * Upon activation, will also spawn its first enemy and start timing the length between two spawns.
      *
      * @param frameCount ensures timely spawning of 2nd enemy
      */
     @Override
     public void activate(double frameCount) {
-        super.activate(frameCount);
-        frameOfLatestChange = frameCount;
-        stillRunning = true;
-        enemies.get(numSpawned).activate();
-        numSpawned++;
+        if (enemies.size() > 0) {
+            super.activate(frameCount);
+            frameOfLatestChange = frameCount;
+            stillRunning = true;
+            enemies.get(numSpawned).activate();
+            numSpawned++;
+        }
     }
 
     /**
@@ -156,7 +162,7 @@ public class SpawnEvent extends WaveEvent {
             }
         }
 
-        /* For each active enemy, move forwards by appropriate pixels until it reaches end of polyline */
+        /* For each active enemy, move forward by appropriate pixels until it reaches end of polyline */
         for (Enemy enemy : enemies) {
             if (enemy.isActive()) {
                 if (enemy.getCurrentPoint().equals(enemy.getNextPoint())) {

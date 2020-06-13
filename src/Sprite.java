@@ -1,12 +1,10 @@
-import bagel.DrawOptions;
 import bagel.Image;
-import bagel.Input;
 import bagel.util.Point;
 import bagel.util.Rectangle;
 import bagel.util.Vector2;
 
 /**
- * Represents a game entity; code inspired from Project 1 solutions
+ * Represents a game entity; code used from Project 1 solutions
  */
 public abstract class Sprite {
 

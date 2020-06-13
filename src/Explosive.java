@@ -31,7 +31,7 @@ public class Explosive extends Ammo {
     }
 
     /**
-     * Update int.
+     * Updates the state of the explosive, detonating, collecting rewards and removing it when appropriate.
      *
      * @param enemies    the enemies, some of which being in the radius of the explosion.
      * @param frameCount the frame count to ensure timely detonation

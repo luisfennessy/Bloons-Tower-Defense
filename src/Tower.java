@@ -52,7 +52,6 @@ public abstract class Tower extends Defender {
             target = null;
             for (Enemy enemy : enemies) {
                 if (enemy.getCurrentPoint().distanceTo(getCenter()) <= getEffectRadius() && enemy.isActive()) {
-                    // System.out.println("New enemy: " + enemy);
                     target = enemy;
                     angleFacing = Math.atan2(target.getCurrentPoint().y - getCenter().y, target.getCurrentPoint().x -
                             getCenter().x);
@@ -68,7 +67,6 @@ public abstract class Tower extends Defender {
         if (target != null) {
             if (coolDownDelay * ShadowDefend.MILLI_TO_NORMAL < (frameCount - frameOfLastShot) / ShadowDefend.FPS &&
                     target.getSpawnEvent().isStillRunning()) {
-                // System.out.println("Shooting at " + frameCount + "from tower: " + this);
                 shoot(target);
                 frameOfLastShot = frameCount;
             }

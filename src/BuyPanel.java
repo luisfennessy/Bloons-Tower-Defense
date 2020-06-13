@@ -5,7 +5,7 @@ import bagel.util.Colour;
 import bagel.util.Point;
 
 /**
- * The panel at the screen's top, depicting defenders available & money remaining - is a singleton design.
+ * The panel at the screen's top, depicting defenders available & money remaining - it's a singleton design.
  */
 public class BuyPanel extends Panel {
 
@@ -14,12 +14,12 @@ public class BuyPanel extends Panel {
     private final static int MONEY_FONT_SIZE = 48;
     private final static int BINDS_FONT_SIZE = 14;
     private final static int PRICE_FONT_SIZE = 22;
+    private final static String KEY_BINDS = "Key binds:\n\nS - Start Wave\nL - Increase Timescale\nK - " +
+            "Decrease Timescale";
 
     // the points at which text and images are drawn to ensure appropriate spacing of panel.
     private final static Image BUY_PANEL_IMAGE = new Image(BUY_PANEL_IMAGE_SRC);
     private final static Point BUY_PANEL_CENTRE = new Point(ShadowDefend.WIDTH/2, BUY_PANEL_IMAGE.getHeight()/2);
-    private final static String KEY_BINDS = "Key binds:\n\nS - Start Wave\nL - Increase Timescale\nK - " +
-                                            "Decrease Timescale";
     private final static int MONEY_TEXT_XVALUE = ShadowDefend.WIDTH - 200;
     private final static int MONEY_TEXT_YVALUE = 65;
     private final static int BINDS_TEXT_XVALUE = ShadowDefend.WIDTH/2 - 60;
@@ -37,6 +37,7 @@ public class BuyPanel extends Panel {
 
     private static BuyPanel _instance;
 
+
     /**
      * Creates a new buy panel.
      */
@@ -44,6 +45,12 @@ public class BuyPanel extends Panel {
         super(BUY_PANEL_CENTRE, BUY_PANEL_IMAGE);
     }
 
+
+    /**
+     * Gets the singleton buy panel, initialising it if not yet done.
+     *
+     * @return the singleton buy panel
+     */
     public static BuyPanel getBuyPanel() {
         if (_instance == null) {
             _instance = new BuyPanel();
@@ -68,7 +75,7 @@ public class BuyPanel extends Panel {
         modelSuperTank.drawModel();
         modelAirplane.drawModel();
 
-        // depending on money remaining, draw prices of defenders in red or green font
+        // depending on money remaining, draw prices of defenders in red or green font as per simplified logic...
         if (moneyLeft >= modelTank.getPrice()) {
             pricesFont.drawString("$" + modelTank.getPrice(), TANK_POSITION.x -
                     modelTank.getImage().getWidth()/2, DEFENCE_TEXT_YVALUE, new
@@ -111,7 +118,7 @@ public class BuyPanel extends Panel {
      * Checks the model defender under which the cursor is placed.
      *
      * @param cursorPosition indicates the position of the cursor
-     * @return the type of model defender the cursor is over, returns null if over none.
+     * @return the model defender the cursor is over, returns null if over none.
      */
     public Defender cursorOverDefender(Point cursorPosition) {
         if (modelTank.getRect().intersects(cursorPosition)) {

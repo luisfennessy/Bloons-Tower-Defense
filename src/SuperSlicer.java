@@ -26,7 +26,7 @@ public class SuperSlicer extends Enemy {
     }
 
     /**
-     * Spawns a new Mega slicer at the position of its parent.
+     * Creates and spawns a new Mega slicer at the position of its parent.
      *
      * @param polyline       its polyline, to be followed.
      * @param spawnEvent     its spawn event
@@ -34,8 +34,8 @@ public class SuperSlicer extends Enemy {
      * @param currentPoint   its current point, inherited from its parent
      * @param nextPoint      its next point, inherited from its parent
      */
-    public SuperSlicer(List<Point> polyline, SpawnEvent spawnEvent, int nextPointIndex, Point
-            currentPoint, Point nextPoint) {
+    public SuperSlicer(List<Point> polyline, SpawnEvent spawnEvent, int nextPointIndex, Point currentPoint, Point
+            nextPoint) {
         super(polyline, SUPER_SLICER_IMAGE, spawnEvent, nextPointIndex, currentPoint, nextPoint, INITIAL_HEALTH,
                 REWARD, PENALTY, CHILDREN_SPAWNED, SPEED);
     }

@@ -1,5 +1,3 @@
-import bagel.DrawOptions;
-import bagel.Input;
 import bagel.util.Point;
 import bagel.util.Vector2;
 
@@ -33,8 +31,8 @@ public abstract class Enemy extends Sprite {
      * @param spawnEvent      the spawn event of the enemy
      * @param initialHealth   enemy's initial health
      * @param reward          enemy's reward for user upon its death
-     * @param penalty         enemy's penalty for the user, when is reaches the polyline's end
-     * @param childrenSpawned enemy's children spawned upon its death
+     * @param penalty         penalty for the user's lives, when it reaches the polyline's end
+     * @param childrenSpawned number of children spawned upon its death
      * @param speed           enemy's speed
      */
     public Enemy(List<Point> polyline, String imageSrc, SpawnEvent spawnEvent, double initialHealth, int reward,
@@ -64,8 +62,8 @@ public abstract class Enemy extends Sprite {
      * @param nextPoint       the next point of the parent
      * @param initialHealth   enemy's initial health
      * @param reward          enemy's reward for user upon its death
-     * @param penalty         enemy's penalty for the user, when is reaches the polyline's end
-     * @param childrenSpawned enemy's children spawned upon its death
+     * @param penalty         penalty for the user's lives, when it reaches the polyline's end
+     * @param childrenSpawned number of children spawned upon its death
      * @param speed           enemy's speed
      */
     public Enemy(List<Point> polyline, String imageSrc, SpawnEvent spawnEvent, int nextPointIndex, Point currentPoint,
@@ -85,6 +83,9 @@ public abstract class Enemy extends Sprite {
         this.speed = speed;
     }
 
+    /**
+     * Activates the enemy, setting the angle of its movement accordingly.
+     */
    public void activate() {
         isActive = true;
         this.setAngle(Math.atan2(nextPoint.y - currentPoint.y, nextPoint.x - currentPoint.x));

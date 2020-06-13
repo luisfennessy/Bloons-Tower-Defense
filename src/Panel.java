@@ -7,7 +7,7 @@ import bagel.util.Rectangle;
  */
 public abstract class Panel {
 
-    private final static String FONT_SRC = "res/fonts/DejaVuSans-Bold.ttf";
+    private final static String FONT_SRC = "res/fonts/DejaVuSans-Bold.ttf";    // the source of the font used on panels
 
     private final Image image;
     private final Rectangle rect;

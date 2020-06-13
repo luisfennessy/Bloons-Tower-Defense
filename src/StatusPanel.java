@@ -15,6 +15,7 @@ public class StatusPanel extends Panel {
             ShadowDefend.HEIGHT - STATUS_PANEL_IMG.getHeight()/2);
     private final static int STATUS_FONT_SIZE = 15;
 
+    // the points at which text and images are drawn to ensure appropriate spacing of panel.
     private final static int WAVE_NO_TEXT_XVALUE = 10;
     private final static int TSCALE_TEXT_XVALUE = 220;
     private final static int STATUS_TEXT_XVALUE = ShadowDefend.WIDTH/2 - 90;
@@ -22,6 +23,7 @@ public class StatusPanel extends Panel {
     private final static int APLANE_TEXT_XVALUE = ShadowDefend.WIDTH/2 + 150;
     private final static int ALL_TEXT_YVALUE = (int)(ShadowDefend.HEIGHT - STATUS_PANEL_IMG.getHeight()/2 + 5);
 
+    // the string representation of they key states of play of a level
     private final static String CURRENT_WAVE_STATUS = "Wave in Progress";
     private final static String PLACING_STATUS = "Placing";
     private final static String WINNER_STATUS = "Winner!";
@@ -53,7 +55,7 @@ public class StatusPanel extends Panel {
      *
      * @param waveNumber          the wave number
      * @param timescale           the timescale
-     * @param livesLeft           lives left
+     * @param livesLeft           lives remaining
      * @param hasWon              whether the game has ended and the user has won
      * @param isPlacing           whether the user is currently placing
      * @param waveActive          whether the wave is currently active

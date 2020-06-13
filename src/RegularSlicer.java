@@ -34,8 +34,8 @@ public class RegularSlicer extends Enemy {
      * @param currentPoint   its current point, inherited from its parent
      * @param nextPoint      its next point, inherited from its parent
      */
-    public RegularSlicer(List<Point> polyline, SpawnEvent spawnEvent, int nextPointIndex, Point
-            currentPoint, Point nextPoint) {
+    public RegularSlicer(List<Point> polyline, SpawnEvent spawnEvent, int nextPointIndex, Point currentPoint,
+                         Point nextPoint) {
         super(polyline, REG_SLICER_IMAGE, spawnEvent, nextPointIndex, currentPoint, nextPoint, INITIAL_HEALTH, REWARD,
                 PENALTY, CHILDREN_SPAWNED, SPEED);
     }

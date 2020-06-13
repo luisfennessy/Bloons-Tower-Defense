@@ -11,11 +11,11 @@ public abstract class Projectile extends Ammo {
     private boolean isAirborne = true;
 
     /**
-     * Creates a new Sprite (game entity)
+     * Creates a projectile at the point of its tower
      *
-     * @param point    The starting point for the entity
+     * @param point    The starting point for the entity (at its tower)
      * @param imageSrc The image which will be rendered at the entity's point
-     * @param target   the target of the projectile
+     * @param target   the target enemy of the projectile
      * @param damage   the damage which the projectile will inflict upon hitting.
      */
     protected Projectile(Point point, String imageSrc, Enemy target, int damage) {

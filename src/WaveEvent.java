@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * A specified event of a wave, either delaying or commencing enemy spawns.
+ * A specified event of a wave, either delaying or coordinating enemy spawns.
  */
 public abstract class WaveEvent {
 
@@ -22,6 +22,9 @@ public abstract class WaveEvent {
         return frameOfEventStart;
     }
 
+    /**
+     * Checks whether a wave event is still taking place on the map.
+     */
     public abstract boolean isStillRunning();
 
     /**

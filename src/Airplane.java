@@ -37,7 +37,7 @@ public class Airplane extends Defender {
     }
 
     /**
-     * Creates a airplane for the BuyPanel, not to be deployed.
+     * Creates a airplane not to be deployed (used as a model for the buy panel).
      *
      * @param point     gives the point at which airplane is centred
      */
@@ -67,7 +67,7 @@ public class Airplane extends Defender {
      *
      * @param enemies       ensures all slicers within drop zone are annihilated
      * @param frameCount    allows for accurate drop of first explosive
-     * @param timescale     denotes the pace of the level, and therefore updating
+     * @param timescale     denotes the pace of the level, and therefore the pace of updating
      * @return the rewards from the killing of slicers.
      */
     @Override

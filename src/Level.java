@@ -219,25 +219,19 @@ public class Level {
 
         // Depending on state of wave, might refresh or terminate it the level, updating the status panel accordingly
         ArrayList<Enemy> currentEnemies = new ArrayList<Enemy>();
+        boolean waveActive = false;
         if (currentWave != null) {
             if (currentWave.isActive()) {
                 currentEnemies.addAll(currentWave.update(timescale, frameCount));
-                statusPanel.update(wavesCompleted + 1, timescale, livesLeft, gameIsOver, isPlacing,
-                        true, lastPlaneHorizontal);
+                waveActive = true;
             } else {
                 currentWave = null;
                 wavesCompleted++;
                 moneyLeft += BASE_WAVE_REWARD + WAVE_NO_REWARD * wavesCompleted;
                 if (wavesCompleted == waves.size()) {
                     isActive = false;
-                } else {
-                    statusPanel.update(wavesCompleted + 1, timescale, livesLeft, gameIsOver, isPlacing,
-                            false, lastPlaneHorizontal);
                 }
             }
-        } else {
-            statusPanel.update(wavesCompleted + 1, timescale, livesLeft, gameIsOver, isPlacing,
-                    false, lastPlaneHorizontal);
         }
 
         // updates the state of all placed defenders
@@ -247,6 +241,8 @@ public class Level {
             }
         }
 
+        statusPanel.update(wavesCompleted + 1, timescale, livesLeft, gameIsOver, isPlacing, waveActive,
+                lastPlaneHorizontal);
         buyPanel.update(moneyLeft);
     }
 }

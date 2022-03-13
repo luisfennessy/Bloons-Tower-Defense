@@ -12,7 +12,7 @@ public class RegularSlicer extends Enemy {
     public static final int REWARD = 2;
     public static final int PENALTY = 1;
     private static final int CHILDREN_SPAWNED = 0;
-    public static final double SPEED = 2;
+    public static final double SPEED = 1;
 
 
     /**
